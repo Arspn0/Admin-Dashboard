@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/src/style.css">
+
+    <!-- Box Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Poppins Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Admin Dashboard - IEU BASRENG</title>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="loginSection" class="login-section">
+        <div class="login-container">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Section (Hidden by default) -->
+    <div id="dashboardSection" class="dashboard-section" style="display: none;">
+        <header>
+            <div class="header-content">
+                <h1>Admin Dashboard</h1>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Order Summary Cards -->
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Orders</h3>
+                    <p id="totalOrders">0</p>
+                </div>
+                <div class="card">
+                    <h3>Today's Orders</h3>
+                    <p id="todayOrders">0</p>
+                </div>
+                <div class="card">
+                    <h3>Total Revenue</h3>
+                    <p id="totalRevenue">Rp0</p>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-section">
+                <h2>Recent Orders</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/admin.js"></script>
+</body>
+</html>
