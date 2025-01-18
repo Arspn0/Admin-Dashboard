@@ -1,10 +1,7 @@
-// admin.js
-
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
 import { getDatabase, ref, onValue, update, remove } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
 
 const firebaseConfig = {
-    // Your Firebase config here
     databaseURL: "https://basreng-store-data-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
