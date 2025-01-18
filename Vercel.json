@@ -1,6 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/app.py" },
-    { "source": "/", "destination": "/src/dashboard.html" }
+  "builds": [
+    { "src": "api/app.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/app.py" },
+    { "src": "/", "dest": "/src/dashboard.html" }
   ]
 }
