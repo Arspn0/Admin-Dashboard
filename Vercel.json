@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "src": "/api/(.*)", "dest": "/api/app.py" },
     { "src": "/", "dest": "/src/dashboard.html" }
   ]
 }
