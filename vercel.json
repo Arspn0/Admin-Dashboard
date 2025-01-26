@@ -1,7 +1,7 @@
 {
     "rewrites": [
         { "source": "/api/(.*)", "destination": "/api/back.py" },
-        { "source": "/", "destination": "/src/dashboard.html" }
+        { "source": "/", "destination": "/src/pages/dashboard.html" }
     ]
 }
   
