@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/Logo.png" type="image/png">
-    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="/src/style/style.css">
 
     <!-- Box Icons -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
     <!-- Poppins Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +20,7 @@
     <title>Admin Dashboard - IEU BASRENG</title>
 </head>
 <body>
+
     <!-- Login Section -->
     <div id="loginSection" class="login-section">
         <div class="login-container">
@@ -38,6 +42,14 @@
             </div>
         </header>
 
+        <!-- Navigation Menu -->
+        <nav class="dashboard-nav">
+            <ul>
+                <li class="nav-item active" data-section="orders">Orders</li>
+                <li class="nav-item" data-section="graphs">Graphs</li>
+            </ul>
+        </nav>
+
         <div class="dashboard-container">
             <!-- Order Summary Cards -->
             <div class="summary-cards">
@@ -55,30 +67,46 @@
                 </div>
             </div>
 
-            <!-- Orders Table -->
-            <div class="orders-section">
-                <h2>Recent Orders</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Date</th>
-                                <th>Items</th>
-                                <th>Total</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ordersTableBody">
-                            <!-- Orders will be populated here -->
-                        </tbody>
-                    </table>
+            <!-- Orders Section -->
+            <div id="ordersSection" class="section">
+                <div class="orders-section">
+                    <h2>Recent Orders</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Orders will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphs Section (Initially Hidden) -->
+            <div id="graphsSection" class="section" style="display: none;">
+                <div class="graphs-container">
+                    <div class="graph-card">
+                        <h2>Daily Sales Volume</h2>
+                        <canvas id="salesVolumeChart"></canvas>
+                    </div>
+                    <div class="graph-card">
+                        <h2>Daily Revenue</h2>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="module" src="/src/admin.js"></script>
+    <script type="module" src="/src/script/admin.js"></script>
 </body>
 </html>

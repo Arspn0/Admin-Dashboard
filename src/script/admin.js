@@ -33,6 +33,24 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('loginSection').style.display = 'flex';
         document.getElementById('dashboardSection').style.display = 'none';
     });
+
+    // Navigation handler
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove active class from all nav items
+            navItems.forEach(nav => nav.classList.remove('active'));
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+
+            // Show/hide corresponding sections
+            const sectionToShow = this.dataset.section;
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = section.id === `${sectionToShow}Section` ? 'block' : 'none';
+            });
+        });
+    });
 });
 
 // Load and display orders
@@ -42,10 +60,105 @@ function loadOrders() {
         const orders = snapshot.val();
         updateDashboardStats(orders);
         displayOrders(orders);
+        generateGraphs(orders);
     });
 }
 
-// Update dashboard statistics
+// Generate graphs for sales and revenue
+function generateGraphs(orders) {
+    if (!orders) return;
+
+    // Process orders by date
+    const dailyData = processOrdersByDate(orders);
+
+    // Sales Volume Chart
+    const salesVolumeCtx = document.getElementById('salesVolumeChart').getContext('2d');
+    new Chart(salesVolumeCtx, {
+        type: 'bar',
+        data: {
+            labels: dailyData.dates,
+            datasets: [{
+                label: 'Number of Orders',
+                data: dailyData.salesVolume,
+                backgroundColor: 'rgba(255, 159, 13, 0.6)',
+                borderColor: 'rgba(255, 159, 13, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Orders'
+                    }
+                }
+            }
+        }
+    });
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+            labels: dailyData.dates,
+            datasets: [{
+                label: 'Daily Revenue',
+                data: dailyData.revenue,
+                backgroundColor: 'rgba(13, 159, 255, 0.6)',
+                borderColor: 'rgba(13, 159, 255, 1)',
+                borderWidth: 2,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Revenue (Rp)'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Process orders to get daily sales and revenue
+function processOrdersByDate(orders) {
+    const dailyData = {};
+
+    // Convert orders to an array and group by date
+    Object.values(orders).forEach(order => {
+        const date = new Date(order.orderDate).toISOString().split('T')[0];
+        
+        if (!dailyData[date]) {
+            dailyData[date] = {
+                salesVolume: 0,
+                revenue: 0
+            };
+        }
+
+        dailyData[date].salesVolume++;
+        dailyData[date].revenue += order.total;
+    });
+
+    // Sort dates and prepare data for charts
+    const sortedDates = Object.keys(dailyData).sort();
+    
+    return {
+        dates: sortedDates,
+        salesVolume: sortedDates.map(date => dailyData[date].salesVolume),
+        revenue: sortedDates.map(date => dailyData[date].revenue)
+    };
+}
+
+// Update dashboard statistics function
 function updateDashboardStats(orders) {
     if (!orders) return;
 
